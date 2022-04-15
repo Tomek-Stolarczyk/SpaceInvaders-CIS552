@@ -53,20 +53,20 @@ class Board:
                     lowest_alien = alien_position[1]
 
                 # Check bounce off right wall
-                if ((self.__traveling_direction == DIRECTION_LEFT) and 
-                    (alien_position[0] - alien.get_size() < 0)):
+                if ((self.__traveling_direction == DIRECTION_LEFT) and
+                   (alien_position[0] - alien.get_size() < 0)):
                     self.__traveling_direction = DIRECTION_DOWN_RIGHT
                 # Check bounce off left wall
-                elif ((self.__traveling_direction == DIRECTION_RIGHT) and 
-                    (alien_position[0] + alien.get_size() > self.__size_x)):
+                elif ((self.__traveling_direction == DIRECTION_RIGHT) and
+                      (alien_position[0] + alien.get_size() > self.__size_x)):
                     self.__traveling_direction = DIRECTION_DOWN_LEFT
-        
+
         # Check bottoming out
-        if ((self.__traveling_direction == DIRECTION_DOWN_LEFT) and 
-            (lowest_alien > (self.__size_y * 3 / 4))):
+        if ((self.__traveling_direction == DIRECTION_DOWN_LEFT) and
+                (lowest_alien > (self.__size_y * 3 / 4))):
             self.__traveling_direction = DIRECTION_LEFT
-        elif ((self.__traveling_direction == DIRECTION_DOWN_RIGHT) and 
-            (lowest_alien > (self.__size_y * 3 / 4))):
+        elif ((self.__traveling_direction == DIRECTION_DOWN_RIGHT) and
+                (lowest_alien > (self.__size_y * 3 / 4))):
             self.__traveling_direction = DIRECTION_RIGHT
 
         return self.__traveling_direction
@@ -95,11 +95,14 @@ class Board:
         print(printable)
 
     def get_shooting_alien(self):
-        most_forward_aliens = [self.get_most_forward_alien_in_column(i) for i in range(10)]     
-        most_forward_alive_aliens = [i for i in most_forward_aliens if i is not None and i.alive()]
-        
+        most_forward_aliens = [self.get_most_forward_alien_in_column(i)
+                               for i in range(10)]
+        most_forward_alive_aliens = [i
+                                     for i in most_forward_aliens
+                                     if i is not None and i.alive()]
+
         shooting_alien = random.choice(most_forward_alive_aliens)
-        return shooting_alien 
+        return shooting_alien
 
     def update_aliens(self):
         if self.__alien_shoot_counter == 0:
@@ -113,7 +116,7 @@ class Board:
 
         if self.__alien_movement_counter == 0:
             self.__alien_movement_counter = ALIEN_MOVEMENT_RATE
-        
+
             direction = self.get_next_travel_direction()
             for alien in self.__aliens:
                 alien.move(direction)
@@ -125,10 +128,10 @@ class Board:
 
     def get_shots(self):
         return self.__shots
-    
+
     def get_aliens(self):
         return self.__aliens
-    
+
     def get_player(self):
         return self.__player
 
@@ -159,14 +162,16 @@ class Board:
             # Check for collision
             for shot in self.__shots:
                 if ((shot.get_position()[1] < 0) or
-                    (shot.get_position()[1] > self.__size_y)):
+                        (shot.get_position()[1] > self.__size_y)):
                     shot.kill()
                 for alien in self.__aliens:
                     if alien.alive() and shot.hits(alien):
                         alien.kill()
                         shot.kill()
                         self.__score += alien.points()
-                        alive_aliens = len([alien for alien in self.__aliens if alien.alive()])
+                        alive_aliens = len([alien
+                                            for alien in self.__aliens
+                                            if alien.alive()])
                         if alive_aliens == 0:
                             self.__game_over = True
                 if shot.hits(self.__player):

@@ -1,4 +1,4 @@
-from Visuals import PyGameRenderer
+from Visuals.Visuals import PyGameRenderer
 
 if __name__ == "__main__":
     game = PyGameRenderer()

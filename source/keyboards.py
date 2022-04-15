@@ -1,12 +1,13 @@
 import keyboard
-import threading
+from threading import Thread
+
 
 class VirtualKeyboard:
     def __init__(self):
         self.__left_pressed = False
         self.__right_pressed = False
         self.__space_pressed = False
-    
+
     def get_key_pressed(self, key):
         if key == "left":
             return self.__left_pressed
@@ -35,12 +36,13 @@ class VirtualKeyboard:
     def destroy(self):
         pass
 
+
 class PhysicalKeyboard:
     def __init__(self):
         self.__left_pressed = False
         self.__right_pressed = False
         self.__running = True
-        self.__thread = threading.Thread(target=lambda: self.keyboard_parsing())
+        self.__thread = Thread(target=lambda: self.keyboard_parsing())
         self.__thread.start()
 
     def keyboard_parsing(self):

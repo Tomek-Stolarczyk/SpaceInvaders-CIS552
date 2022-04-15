@@ -1,5 +1,6 @@
 PLAYER_SIZE = 25
 
+
 class Player:
     def __init__(self, keyboard, location, board_limit):
         self.__location = list(location)
@@ -19,7 +20,7 @@ class Player:
             self.__location[0] = 0
         if self.__location[0] > self.__board_limit:
             self.__location[0] = self.__board_limit
-    
+
         if self.__keyboard.get_key_pressed("space"):
             self.__space_pressed = True
         else:
