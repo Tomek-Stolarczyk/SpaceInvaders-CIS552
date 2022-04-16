@@ -1,4 +1,3 @@
-import keyboard
 from threading import Thread
 
 
@@ -46,6 +45,7 @@ class PhysicalKeyboard:
         self.__thread.start()
 
     def keyboard_parsing(self):
+        import keyboard
         while self.__running:
             event = keyboard.read_event()
             if event.name == "right":
@@ -66,6 +66,7 @@ class PhysicalKeyboard:
         raise Exception("Shouldn't be called")
 
     def destroy(self):
+        import keyboard
         self.__running = False
         keyboard.write("q")
         self.__thread.join()
